@@ -123,6 +123,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'geo',
     'places',
+    'products',
     'south',
 )
 
