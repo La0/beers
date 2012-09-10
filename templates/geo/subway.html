@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div id="map" style="width: 600px; height: 400px"></div>
+
+<script type="text/javascript">
+var map = new L.Map('map');
+
+// create the tile layer with correct attribution
+var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+var osmAttrib='Map data © OpenStreetMap contributors';
+var osm = new L.TileLayer(osmUrl, {minZoom: 8, maxZoom: 14, attribution: osmAttrib});		
+
+// start the map in Paris
+map.setView(new L.LatLng(48.8500,2.3200), 13);
+map.addLayer(osm);
+
+// setup icon
+var SubwayIcon = new L.Icon.extend({
+	iconUrl : '/medias/asterisk_orange.png',
+	iconSize: new L.Point(16, 16),
+});
+
+lines = {};
+
+{% for line in lines %}
+	line = [];
+	{% for station in line.get_stations() %}
+	{% set lat,lng = station.get_point() %}
+	pos = new L.LatLng({{lng}}, {{lat}});
+	line.push(pos)
+	var marker = new L.Marker(pos);
+	map.addLayer(marker);	
+	{% endfor %}
+	
+	//Draw line {{line.name}}
+	var polyline = new L.Polyline(line, {color:'{{line.color}}'});
+	//map.fitBounds()
+	map.addLayer(polyline);
+	
+	lines['line.name'] = line;
+{% endfor %}
+
+</script>
+
+
+{% for line in lines %}
+	<h2>{{line.name}}</h2>
+	
+	{% for station in line.get_stations() %}
+		<p>
+			{{station.name}}
+		</p>
+	{% endfor %}
+	
+{% endfor %}
+
+{% endblock %}

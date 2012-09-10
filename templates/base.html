@@ -1,0 +1,51 @@
+<html>
+<head>
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.4/leaflet.css" />
+	<!--[if lte IE 8]>
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.4/leaflet.ie.css" />
+	<![endif]-->
+	<script src="http://cdn.leafletjs.com/leaflet-0.4.4/leaflet.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+
+    <link href="/medias/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="/medias/js/bootstrap.min.js"></script>
+
+
+	<title>My pubs</title>
+</head>
+<body>
+
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span3">
+				<div class="well sidebar-nav">
+					<ul class="nav nav-list">
+						<li class="nav-header">Bars & co.</li>
+						<li><a href="/">Home</a></li>
+						<li><a href="/places/add">Add a place</a></li>
+						{% if user.is_authenticated() %}
+						<li class="nav-header">{{user}}</li>
+						<li><a href="/logout">Logout</a></li>
+						{% else %}
+						<li><a href="#">Login</a></li>
+						{% endif %}
+					</ul>
+				</div>
+			</div>
+			<div class="span9">
+				{% block content %}
+				No content
+				{% endblock %}
+			</div>
+		</div>
+	</div>
+	<hr />
+	<footer>
+		<p>Made by lao</p>
+	</footer>
+
+    </div><!--/.fluid-container-->
+
+
+</body>
+</html>

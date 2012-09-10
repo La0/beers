@@ -1,0 +1,7 @@
+from django.conf.urls import patterns, include, url
+
+urlpatterns = patterns('',
+    url(r'^/?$', 'places.views.index', name="places"),
+    url(r'^add$', 'places.views.add', name="place-add"),
+    url(r'^(?P<city_slug>\w+)/(?P<place_slug>\w+)', 'places.views.view', name="place-view"),
+)

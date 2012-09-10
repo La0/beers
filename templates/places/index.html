@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Places</h1>
+
+{% for place in places %}
+<div class="place" id="{{place.id}}">
+	<p><a href="{{place.get_absolute_url()}}">{{place.name}}</a></p>
+	<p>{{place.address}} - {{place.city.name}}</p>
+	<p>Created by {{place.creator}} on {{place.created|date('d-m-Y H\hi')}}</p>
+</div>
+{% endfor %}
+
+{% endblock %}

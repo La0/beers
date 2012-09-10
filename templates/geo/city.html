@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>{{city.name}}</h2>
+
+<div id="map" style="width: 600px; height: 400px"></div>
+
+<button id="save_city">Save</button>
+
+<script type="text/javascript">
+var map = new L.Map('map');
+
+// create the tile layer with correct attribution
+var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+var osmAttrib='Map data © OpenStreetMap contributors';
+var osm = new L.TileLayer(osmUrl, {minZoom: 8, maxZoom: 14, attribution: osmAttrib});
+
+// start the map in Paris
+map.setView(new L.LatLng(48.8500,2.3200), 13);
+map.addLayer(osm);
+
+
+//Init polygon
+var city = new L.Polygon([]);
+map.addLayer(city);
+
+map.on('click', addPoint);
+
+function addPoint(event){
+	pos = event.latlng;
+	
+	var marker = new L.Marker(pos);
+	marker.on('click', function(e){alert(e.type);})
+	map.addLayer(marker);
+	
+	city.addLatLng(pos);
+	
+}
+
+$('#save_city').click(function(e){
+	coords = city.getLatLngs();
+	$.ajax({
+		type	: 'POST',
+		url		: '{% url city city.pk %}',
+		data 	: {
+			coords : JSON.stringify(coords),
+		},
+		success : function(data, status){
+			//alert(" ok " + data);
+		}
+	});
+});
+
+</script>
+{% endblock %}

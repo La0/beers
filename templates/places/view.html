@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{place.name}}</h1>
+
+<p>
+	Address: {{place.address}} - {{place.city.zipcode}} {{place.city.name}}
+</p>
+<p>
+	Created by {{place.creator}} on {{place.created|date('d-m-Y H\hi')}}
+</p>
+
+{% endblock %}

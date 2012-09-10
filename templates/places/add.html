@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Add a place</h1>
+
+<form method="POST" url="">
+	{% csrf_token %}
+	{{form.as_p()|safe}}
+	<input type="submit" value="Ok">
+</form>
+
+{% endblock %}
