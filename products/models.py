@@ -17,7 +17,7 @@ class ProductCategory(models.Model):
 class Product(models.Model):
   name = models.CharField(max_length=255)
   slug = models.SlugField(unique=True, blank=True)
-  category = models.ForeignKey(ProductCategory)
+  category = models.ForeignKey(ProductCategory, related_name="products")
   brand = models.CharField(max_length=255, null=True, blank=True)
 
   # Creator

@@ -10,4 +10,46 @@
 	Created by {{place.creator}} on {{place.created|date('d-m-Y H\hi')}}
 </p>
 
+<h2>Products</h2>
+
+{% if prices %}
+<ul>
+{% for price in prices %}
+	<li>{{price.product.name}} @ {{price.price}} euros by {{price.creator}}</li>
+{% endfor %}
+</ul>
+{% else %}
+No prices
+{% endif %}
+
+{% if user.is_authenticated %}
+<ul id="products_tab" class="nav nav-tabs">
+{% for cat in categories %}
+<li {% if loop.first %}class="active"{% endif %}><a href="#cat_{{cat.id}}" data-toggle="tab">{{cat.name}}</a></li>	
+{% endfor %}
+</ul>
+
+   <div id="products_content" class="tab-content">
+{% for cat in categories %}
+<div class="tab-pane fade {% if loop.first %}in active{% endif %}" id="cat_{{cat.id}}">
+	{% for product in cat.products.all() %}
+	<p class="product" id="product_{{product.id}}">
+		{{product.name}}
+	</p>
+	{% else %}
+	<p class="alert alert-error">No products</p>
+	{% endfor %}
+</div>
+{% endfor %}
+</div>
+
+<hr />
+<form method="POST" action="" id="price_form">
+	{% csrf_token %}
+	{{ price_form|safe }}
+	<input class="btn" type="submit" value="Ok">
+</form>
+
+{% endif %}
+
 {% endblock %}
