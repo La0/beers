@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Map of <a href="{% url place-view place.city.slug, place.slug %}">{{place.name}}</a> in {{place.city.name}}</h1>
+<p>
+	{{place.address}} - {{place.zipcode}} {{place.city}}
+</p>
+{% if point %}
+<p class="alert alert-success">Position on {{point[0]}}, {{point[1]}}</p>
+{% else %}
+<p class="alert alert-error">No position yet</p>
+{% endif %}
+
+{% if results %}
+
+<div id="map" style="width: 600px; height: 400px"></div>
+<div id="results">
+	Position: <span class="position"></span>
+	<button class="btn btn-primary btn-small">Save</button>
+</div>
+
+<script type="text/javascript">
+var map = new L.Map('map');
+
+// create the tile layer with correct attribution
+var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+var osmAttrib='Map data © OpenStreetMap contributors';
+var osm = new L.TileLayer(osmUrl, {minZoom: 8, maxZoom: 14, attribution: osmAttrib});		
+
+// start the map in Paris
+map.setView(new L.LatLng(48.8500,2.3200), 13);
+map.addLayer(osm);
+
+
+// On click
+var selected = null;
+function onMapClick(e) {
+	// Debug
+	$('#results span.position').html(e.latlng.lat+", "+e.latlng.lng);
+
+	// Selected Marker
+	if(selected == null){
+		selected = new L.Marker(e.latlng);
+		map.addLayer(selected);
+	}else{
+		selected.setLatLng(e.latlng);
+	}
+}
+map.on('click', onMapClick);
+
+function onResultClick(e){
+	latlng = e.target.getLatLng();
+	$('#results span.position').html(latlng.lat+", "+latlng.lng);
+	if(selected != null){
+		map.removeLayer(selected);
+		selected.setLatLng(latlng);
+	}
+}
+
+// Setup results
+var bounds = [];
+var marker = null;
+{% for result in results %}
+	pos = new L.LatLng({{result.lat}}, {{result.lon}});
+	bounds.push(pos);
+	marker = new L.Marker(pos);
+	marker.bindPopup("{{result.display_name}}").openPopup();
+	marker.on('click', onResultClick);
+	map.addLayer(marker);	
+{% endfor %}
+map.fitBounds(bounds);
+
+
+// Save selected data
+$('#results button').click(function(){
+	if(selected == null){
+		alert('Select a place !');
+		return false;
+	}
+	latlng = selected.getLatLng();
+	data = {
+		'lat' : latlng.lat,
+		'lng' : latlng.lng,
+	};
+	$.post(window.location.href, data, function(data){});
+});	
+</script>
+
+
+{% else %}
+<p class="alert">No results found</p>
+{% endif %}
+
+
+{% endblock %}

@@ -10,6 +10,42 @@
 	Created by {{place.creator}} on {{place.created|date('d-m-Y H\hi')}}
 </p>
 
+<h2>Map</h2>
+{% with place.get_point() as point %}
+{% if point %}
+<div id="map" style="width: 100%; height: 180px"></div>
+{% if user.is_authenticated %}
+	<a class="btn btn-success" href="{% url place-map place.id %}">Edit the map</a>
+{% endif %}
+
+<script type="text/javascript">
+var map = new L.Map('map');
+
+// create the tile layer with correct attribution
+var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+var osmAttrib='Map data © OpenStreetMap contributors';
+var osm = new L.TileLayer(osmUrl, {minZoom: 8, maxZoom: 14, attribution: osmAttrib});		
+
+// start the map in Paris
+var place = new L.LatLng({{point[0]}}, {{point[1]}});
+
+map.setView(place, 13);
+map.addLayer(osm);
+
+var marker = new L.Marker(place);
+map.addLayer(marker);
+
+</script>
+
+{% else %}
+	{% if user.is_authenticated %}
+	<a class="btn btn-warning" href="{% url place-map place.id %}">Create the map</a>
+	{% else %}
+	<p class="alert alert-info">No map yet for this place</p>
+	{% endif %}
+{% endif %}
+{% endwith %}
+
 <h2>Products</h2>
 
 {% if prices %}

@@ -20,7 +20,7 @@ def add(request):
   if request.method == 'POST':
     form = PlaceForm(request.POST)
     if form.is_valid():
-      p = Place(name=form.cleaned_data['name'], address=form.cleaned_data['name'], city=form.cleaned_data['city'], creator=request.user)
+      p = Place(name=form.cleaned_data['name'], address=form.cleaned_data['address'], city=form.cleaned_data['city'], creator=request.user)
       p.save()
       
       # Redirect to place view

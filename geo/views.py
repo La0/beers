@@ -1,7 +1,9 @@
 from helpers import render
 from geo.models import SubwayLine
-from places.models import City
+from places.models import City, Place
 from django.shortcuts import get_object_or_404
+from geo.geocoding import AddressFinder
+import geojson
 
 @render('geo/subway.html')
 def subway(request):
@@ -21,4 +23,24 @@ def city(request, city_id):
   
   return {
     'city': city,
+  }
+
+@render('geo/place.html')
+def place(request, place_id):
+  place = get_object_or_404(Place, pk=place_id)
+
+  # Save position
+  if request.method == 'POST':
+    p = geojson.Point([request.POST['lat'], request.POST['lng']])
+    place.geojson = geojson.dumps(p)
+    place.save()
+
+  # Find address
+  af = AddressFinder(place.address, place.city)
+  res = af.search()
+
+  return {
+    'place' : place,
+    'results' : res,
+    'point' : place.get_point(),
   }
