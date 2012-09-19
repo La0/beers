@@ -28,6 +28,9 @@ class Product(models.Model):
   # Link to places
   places = models.ManyToManyField(Place, through='ProductPrice')
 
+  # Extra data
+  wikipedia = models.URLField(null=True)
+
   def __unicode__(self):
     return self.name
 
