@@ -68,9 +68,9 @@ No prices
    <div id="products_content" class="tab-content">
 {% for cat in categories %}
 <div class="tab-pane fade {% if loop.first %}in active{% endif %}" id="cat_{{cat.id}}">
-	{% for product in cat.products.all() %}
+	{% for product in cat.products.all().order_by('name') %}
 	<p class="product" id="product_{{product.id}}">
-		{{product.name}}
+		{{product.name|truncatechars(15)}}
 	</p>
 	{% else %}
 	<p class="alert alert-error">No products</p>
