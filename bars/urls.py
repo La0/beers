@@ -8,10 +8,7 @@ from bars.settings import MEDIA_ROOT
 urlpatterns = patterns('',
     url(r'^geo/', include('geo.urls')),
     url(r'^places/', include('places.urls')),
-
-    # User
-    (r'^login$', 'django.contrib.auth.views.login', {'template_name': 'users/login.html'}),
-    (r'^logout$', 'django.contrib.auth.views.logout', {'template_name': 'users/logout.html'}),
+    url(r'^user/', include('users.urls')),
 
     # Medias for dev
     (r'^medias/(?P<path>.*)$', 'django.views.static.serve', {'document_root': MEDIA_ROOT}),
