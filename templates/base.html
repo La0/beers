@@ -25,11 +25,11 @@
 						<li class="nav-header">Bars & co.</li>
 						<li><a href="/">Home</a></li>
 						<li><a href="/places/add">Add a place</a></li>
-						{% if user.is_authenticated %}
+						{% if user.is_authenticated() %}
 						<li class="nav-header">{{user}}</li>
-						<li><a href="/logout">Logout</a></li>
+						<li><a href="{% url 'logout' %}">Logout</a></li>
 						{% else %}
-						<li><a href="#">Login</a></li>
+						<li><a href="{% url 'login' %}">Login</a></li>
 						{% endif %}
 					</ul>
 				</div>
