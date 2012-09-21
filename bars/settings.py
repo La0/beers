@@ -161,6 +161,10 @@ LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/login'
 LOGOUT_REDIRECT_URL = '/'
 
+# Fabric dummy configuration, use local_settings
+FABRIC_HOSTS = ['root@127.0.0.2']
+FABRIC_ENV = 'django'
+
 # Import local settings, if any
 try:
   from local_settings import *
