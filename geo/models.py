@@ -9,6 +9,8 @@ class Localisation(models.Model):
     abstract = True
   
   def get_point(self):
+    if not self.geojson:
+      return None
     point = geojson.loads(self.geojson)
     if point['type'] != 'Point':
       return None
