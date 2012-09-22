@@ -14,10 +14,13 @@
 <p class="alert alert-warning">No prices</p>
 {% endif %}
 
+{% if form %}
 <form method="POST" action="">
 	{% csrf_token %}
 	{{ form.as_p()|safe }}
 	<input class="btn btn-primary" type="submit" value="Ok" />
+	<a class="btn" href="{{ place.get_absolute_url() }}">Cancel</a>
 </form>
+{% endif %}
 
 {% endblock %}

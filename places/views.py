@@ -40,7 +40,7 @@ def view(request, city_slug, place_slug):
   except:
     raise Http404('Place not found')
   
-  prices = ProductPrice.objects.filter(place=place)
+  prices = ProductPrice.objects.filter(place=place, current=True)
   
   return {
     'place' : place,

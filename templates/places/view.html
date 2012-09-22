@@ -51,7 +51,7 @@ map.addLayer(marker);
 {% if prices %}
 <ul>
 {% for price in prices %}
-	<li>{{price.product.name}} @ {{price.price}} euros by {{price.creator}}</li>
+	<li><a href="{% url product-price price.product.id, place.id %}">{{price.product.name}}</a> @ {{price.price}} euros by {{price.creator}}</li>
 {% endfor %}
 </ul>
 {% else %}
