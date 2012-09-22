@@ -4,7 +4,6 @@ from django.contrib.auth.decorators import login_required
 from models import Place
 from django.http import Http404, HttpResponseRedirect
 from products.models import ProductPrice, ProductCategory
-from products.forms import PriceForm
 
 @render('places/index.html')
 def index(request):
@@ -41,20 +40,10 @@ def view(request, city_slug, place_slug):
   except:
     raise Http404('Place not found')
   
-  # Products
-  if request.method == 'POST':
-    price_form = PriceForm(request.POST)
-    if price_form.is_valid():
-      price = ProductPrice(place=place, price=price_form.cleaned_data['price'], product=price_form.cleaned_data['product'], creator=request.user)
-      price.save()
-  else:
-    price_form = PriceForm()
-
   prices = ProductPrice.objects.filter(place=place)
   
   return {
     'place' : place,
     'prices' : prices,
-    'price_form' : price_form,
     'categories' : ProductCategory.objects.all()
   }

@@ -1,6 +1,7 @@
 /* Products */
-#products_content p.product {
+#products_content a.product {
   width: 120px;
+  display: block;
   float: left;
   margin: 5px;
   height: 15px;
@@ -11,6 +12,11 @@
   cursor: pointer;
 }
 
-#products_content p.product:hover {
+#products_content a.product:hover {
   background: #D0FFAE;
+}
+
+/* Prices */
+ul.prices li.current {
+  font-weight: bold;
 }

@@ -69,22 +69,15 @@ No prices
 {% for cat in categories %}
 <div class="tab-pane fade {% if loop.first %}in active{% endif %}" id="cat_{{cat.id}}">
 	{% for product in cat.products.all().order_by('name') %}
-	<p class="product" id="product_{{product.id}}">
+	<a class="product" href="{% url product-price product.id, place.id %}" id="product_{{product.id}}">
 		{{product.name|truncatechars(15)}}
-	</p>
+	</a>
 	{% else %}
 	<p class="alert alert-error">No products</p>
 	{% endfor %}
 </div>
 {% endfor %}
 </div>
-
-<hr />
-<form method="POST" action="" id="price_form">
-	{% csrf_token %}
-	{{ price_form|safe }}
-	<input class="btn" type="submit" value="Ok">
-</form>
 
 {% endif %}
 
