@@ -9,6 +9,7 @@ urlpatterns = patterns('',
     url(r'^geo/', include('geo.urls')),
     url(r'^places/', include('places.urls')),
     url(r'^user/', include('users.urls')),
+    url(r'^product/', include('products.urls')),
 
     # Medias for dev
     (r'^medias/(?P<path>.*)$', 'django.views.static.serve', {'document_root': MEDIA_ROOT}),

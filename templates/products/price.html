@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>{{product.category.name}} {{product.name}} for place <a href="{{place.get_absolute_url()}}">{{place.name}}</a></h1>
+
+{% if prices %}
+<ul class="prices">
+	{% for price in prices %}
+	<li class="{% if price.current %}current{% endif %}">{{price.price}} ({{price.created}} by {{price.creator}})</li>
+	{% endfor %}
+</ul>
+{% else %}
+<p class="alert alert-warning">No prices</p>
+{% endif %}
+
+<form method="POST" action="">
+	{% csrf_token %}
+	{{ form.as_p()|safe }}
+	<input class="btn btn-primary" type="submit" value="Ok" />
+</form>
+
+{% endblock %}
