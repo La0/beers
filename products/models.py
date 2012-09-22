@@ -38,6 +38,7 @@ class Product(models.Model):
     self.slug = nameize(self.name)
     super(Product, self).save(*args, **kwargs)
 
+
 class ProductPrice(models.Model):
   '''
   Link a Product and a Place
@@ -45,6 +46,7 @@ class ProductPrice(models.Model):
   '''
   place = models.ForeignKey(Place)
   product = models.ForeignKey(Product)
+  current = models.BooleanField(default=True)
 
   price = models.FloatField()
 
