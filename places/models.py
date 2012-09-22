@@ -1,5 +1,5 @@
 from django.db import models
-from geo.models import Localisation, City
+from geo.models import Localisation, City, SubwayStation
 from django.contrib.auth.models import User
 from helpers import nameize
 
@@ -14,6 +14,7 @@ class Place(Localisation):
   type = models.CharField(max_length=10, choices=PLACE_TYPE, default='bar')
   address = models.CharField(max_length=255)
   city = models.ForeignKey(City)
+  subways = models.ManyToManyField(SubwayStation)
   
   # Creator
   creator = models.ForeignKey(User)
