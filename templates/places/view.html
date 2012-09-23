@@ -46,6 +46,21 @@ map.addLayer(marker);
 {% endif %}
 {% endwith %}
 
+<h2>Subways</h2>
+{% if place.subways.count() > 0 %}
+<ul>
+	{% for subway in place.subways.all() %}
+	<li>
+		{{subway.name}}
+		{% for line in subway.lines.all() %}
+			<img src="/medias/img/subways/ligne_{{line.name}}.png" />
+		{% endfor %}
+	</li>
+	{% endfor %}
+</ul>
+{% else %}
+<p class="alert alert-warning">No subways</p>
+{% endif %}
 <h2>Products</h2>
 
 {% if prices %}
