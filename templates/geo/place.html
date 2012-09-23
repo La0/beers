@@ -12,13 +12,16 @@
 <p class="alert alert-error">No position yet</p>
 {% endif %}
 
-{% if results %}
 
 <div id="map" style="width: 600px; height: 400px"></div>
 <div id="results">
 	Position: <span class="position"></span>
 	<button class="btn btn-primary btn-small">Save</button>
 </div>
+{% if not results %}
+<p class="alert">No results found</p>
+{% endif %}
+
 
 <script type="text/javascript">
 var map = new L.Map('map');
@@ -58,6 +61,8 @@ function onResultClick(e){
 	}
 }
 
+{% if results %}
+
 // Setup results
 var bounds = [];
 var marker = null;
@@ -70,6 +75,8 @@ var marker = null;
 	map.addLayer(marker);	
 {% endfor %}
 map.fitBounds(bounds);
+
+{% endif %}
 
 
 // Save selected data
@@ -86,11 +93,5 @@ $('#results button').click(function(){
 	$.post(window.location.href, data, function(data){});
 });	
 </script>
-
-
-{% else %}
-<p class="alert">No results found</p>
-{% endif %}
-
 
 {% endblock %}
