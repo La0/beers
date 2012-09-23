@@ -14,7 +14,7 @@ class Place(Localisation):
   type = models.CharField(max_length=10, choices=PLACE_TYPE, default='bar')
   address = models.CharField(max_length=255)
   city = models.ForeignKey(City)
-  subways = models.ManyToManyField(SubwayStation)
+  subways = models.ManyToManyField(SubwayStation, blank=True)
   
   # Creator
   creator = models.ForeignKey(User)
@@ -30,14 +30,9 @@ class Place(Localisation):
 
   def save(self, *args, **kwargs):
     self.slug = nameize(self.name)
-
-    # Update subways
-    if self.geojson is not None:
-      self.find_subways()
-
     super(Localisation, self).save(*args, **kwargs)
 
-  def find_subways(self, max_distance = 10):
+  def find_subways(self, max_distance = 15):
     '''
     Bad implementation, we should be able to limit the perimeter
     of research...
@@ -50,6 +45,9 @@ class Place(Localisation):
       return False
     lat, lng = pos
 
+    # Clean stations
+    self.subways.all().delete()
+
     stations = SubwayStation.objects.all() # BAD !
     for station in stations:
       station_lat, station_lng = station.get_point()
@@ -59,4 +57,3 @@ class Place(Localisation):
       if diff > max_distance:
         continue
       self.subways.add(station)
-    self.save()
