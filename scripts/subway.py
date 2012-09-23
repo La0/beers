@@ -18,6 +18,7 @@ import os
 def load_stations(stations):
   for h, station in stations.items():
     # Build or update station
+    station['coords'].reverse() # First lat, then lng
     p = geojson.Point(station['coords'])     
     st, created = SubwayStation.objects.get_or_create(geojson=geojson.dumps(p))
     st.name = station['name']
