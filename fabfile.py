@@ -32,6 +32,7 @@ def migrate_db():
   '''
   run('./manage.py migrate geo')
   run('./manage.py migrate places')
+  run('./manage.py migrate products')
 
 def stop_fcgi(pidfile='bars.pid'):
   '''
