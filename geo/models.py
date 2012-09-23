@@ -14,7 +14,7 @@ class Localisation(models.Model):
     point = geojson.loads(self.geojson)
     if point['type'] != 'Point':
       return None
-    return point['coordinates']
+    return (float(point['coordinates'][0]), float(point['coordinates'][1]))
 
 class City(Localisation):
   name = models.CharField(max_length=255)
