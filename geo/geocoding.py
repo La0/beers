@@ -10,7 +10,7 @@ class AddressFinder:
   def __init__(self, address, city):
     if address == '':
       raise Exception("Empty address")
-    self._address = '%s, %s %s' % (address, city.zipcode, city.name)
+    self._address = u'%s, %s' % (address, city.name)
   
   def search(self):
     '''
