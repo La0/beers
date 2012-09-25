@@ -10,7 +10,7 @@ class AperosSpider(CrawlSpider):
         "http://www.lesamisdelapero.fr/paris/classement-bars",
     ]
     rules = (
-        Rule(SgmlLinkExtractor(allow=('/paris/bars', )), callback='parse_bar'),
+        Rule(SgmlLinkExtractor(allow=('/paris/bars/', )), callback='parse_bar'),
     )
     
 
@@ -20,5 +20,6 @@ class AperosSpider(CrawlSpider):
       item = PlaceItem()
       item['name'] = hxs.select('//h1/span/text()').extract()[0]
       item['address'] = hxs.select("//span[@property='v:street-address']/a/text()").extract()[0]
+      item['city'] = hxs.select("//span[@property='v:locality']/text()").extract()[0]
 
       return item

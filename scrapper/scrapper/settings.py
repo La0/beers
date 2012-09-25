@@ -19,6 +19,10 @@ ENCODING_ALIASES = {
   'iso-8859-1': 'iso-8859-1',
 }
 
+ITEM_PIPELINES = ['scrapper.pipelines.PlacePipeline']
+
+DJANGO_USER_ID = 2
+
 import imp, os
 
 def setup_django_env(app_path, env_path):
