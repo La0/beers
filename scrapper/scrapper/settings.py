@@ -5,6 +5,7 @@
 #
 #     http://doc.scrapy.org/topics/settings.html
 #
+import imp, os
 
 BOT_NAME = 'bars-scrapper'
 BOT_VERSION = '1.0'
@@ -23,7 +24,13 @@ ITEM_PIPELINES = ['scrapper.pipelines.PlacePipeline']
 
 DJANGO_USER_ID = 2
 
-import imp, os
+MY_ENV_PATH = os.path.realpath('../../virtualenv/bars')
+MY_APP_PATH = os.path.realpath('../bars')
+
+try:
+  from local_settings import *
+except ImportError, e:
+  pass
 
 def setup_django_env(app_path, env_path):
 
@@ -41,4 +48,4 @@ def setup_django_env(app_path, env_path):
   import sys
   sys.path.append(os.path.abspath(os.path.join(app_path, os.path.pardir)))
 
-setup_django_env(os.path.realpath('../bars'), os.path.realpath('../../virtualenv/bars'))
+setup_django_env(MY_APP_PATH, MY_ENV_PATH)
