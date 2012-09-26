@@ -16,6 +16,14 @@ class Localisation(models.Model):
       return None
     return (float(point['coordinates'][0]), float(point['coordinates'][1]))
 
+  def get_polygon(self):
+    if not self.geojson:
+      return None
+    polygon = geojson.loads(self.geojson)
+    if polygon['type'] != 'Polygon':
+      return None
+    return polygon['coordinates']
+
 class City(Localisation):
   name = models.CharField(max_length=255)
   slug = models.SlugField(unique=True, blank=True)

@@ -21,9 +21,21 @@ map.setView(new L.LatLng(48.8500,2.3200), 13);
 map.addLayer(osm);
 
 
+//Display city actual coords
+var pos = null;
+var bounds = []
+{% for lat, lng in city.get_polygon() %}
+pos = new L.LatLng({{lat}},{{lng}});
+bounds.push(pos);
+marker = new L.Marker(pos);
+map.addLayer(marker);
+{% endfor %}
+map.fitBounds(new L.LatLngBounds(bounds));
+
 //Init polygon
-var city = new L.Polygon([]);
+var city = new L.Polygon(bounds);
 map.addLayer(city);
+
 
 map.on('click', addPoint);
 
