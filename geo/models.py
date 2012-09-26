@@ -25,7 +25,7 @@ class City(Localisation):
     return self.name
 
   def save(self, *args, **kwargs):
-    self.urlName = nameize(self.name)
+    self.slug = nameize(self.name)
     super(Localisation, self).save(*args, **kwargs)
 
 class SubwayStation(Localisation):
