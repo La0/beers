@@ -41,7 +41,6 @@ class Place(Localisation):
     cf = CityFinder(self)
     city = cf.search()
     if city is not None:
-      print city.name
       self.city = city
 
   def find_subways(self, max_distance = 15):

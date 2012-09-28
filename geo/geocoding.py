@@ -2,6 +2,7 @@ from urllib import urlencode
 from urllib2 import urlopen
 import simplejson as json
 from geo.models import City
+import sys
 
 class AddressFinder:
   _url = "http://nominatim.openstreetmap.org/search"
@@ -61,6 +62,9 @@ class CityFinder:
     return None
 
   def _ray_intersect(self, a, b):
+    _huge = sys.float_info.max
+    _tiny = sys.float_info.min
+
     # Point A must be below Point b
     if a[0] > b[0]:
       a,b = b,a
