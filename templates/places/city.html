@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{city.name}}</h1>
+
+<div id="map" style="width: 100%; height: 300px"></div>
+
+<script type="text/javascript">
+var map = new L.Map('map');
+
+// create the tile layer with correct attribution
+var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+var osmAttrib='Map data © OpenStreetMap contributors';
+var osm = new L.TileLayer(osmUrl, {minZoom: 8, maxZoom: 14, attribution: osmAttrib});
+
+// start the map in Paris
+map.setView(new L.LatLng(48.8500,2.3200), 13);
+map.addLayer(osm);
+
+
+var pos = null;
+{% if polygon %}
+//Display city actual coords
+var bounds = []
+
+{% for lat, lng in polygon %}
+pos = new L.LatLng({{lat}},{{lng}});
+bounds.push(pos);
+{% endfor %}
+map.fitBounds(new L.LatLngBounds(bounds));
+
+//Init polygon
+var city = new L.Polygon(bounds);
+map.addLayer(city);
+{% endif %}
+
+
+{% if places %}
+{% for place in places %}
+
+{% with place.get_point() as point %}
+pos = new L.LatLng({{point[0]}}, {{point[1]}});
+var marker = new L.Marker(pos);
+marker.bindPopup("{{place.name}}").openPopup();
+map.addLayer(marker);
+{% endwith %}
+
+{% endfor %}
+{% endif %}
+
+</script>
+
+
+<h2>{{places.count()}} bar{{places.count()|pluralize()}}</h2>
+{% if places %}
+  {% for place in places %}
+  <div>
+    <a href="{{place.get_absolute_url()}}">{{place.name}}</a> - {{place.address}}
+  </div>
+  {% endfor %}
+{% else %}
+<p class="alert alert-warning">No places</p>
+{% endif %}
+
+
+{% endblock %}

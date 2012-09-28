@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from models import Place
 from django.http import Http404, HttpResponseRedirect
 from products.models import ProductPrice, ProductCategory
+from geo.models import City
 
 @render('places/index.html')
 def index(request):
@@ -46,4 +47,17 @@ def view(request, city_slug, place_slug):
     'place' : place,
     'prices' : prices,
     'categories' : ProductCategory.objects.all()
+  }
+
+@render('places/city.html')
+def city(request, city_slug):
+  try:
+    city = City.objects.get(slug=city_slug)
+  except:
+    raise Http404('City not found')
+
+  return {
+    'city' : city,
+    'polygon' : city.get_polygon(),
+    'places' : Place.objects.filter(city=city),
   }

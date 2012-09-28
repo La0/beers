@@ -5,7 +5,7 @@ from geo.models import City
 import sys
 
 class AddressFinder:
-  _url = "http://nominatim.openstreetmap.org/search"
+  _url = u"http://nominatim.openstreetmap.org/search"
   _address = ''
   _data = []
   
@@ -23,9 +23,9 @@ class AddressFinder:
       'q' : self._address,
       'countrycodes' : 'fr', # Harccoded !
     }
-    url = '%s?%s' % (self._url, urlencode(args))
-    
+
     try:
+      url = '%s?%s' % (self._url, urlencode(args))
       res = urlopen(url)
       self._data = json.loads(res.readline())
     except Exception, e:
