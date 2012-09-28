@@ -1,6 +1,19 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<h1>Cities</h1>
+<ul class="cities">
+{% for city in cities %}
+<li>
+  {% with city.places.count() as nb %}
+  <span class="badge {% if nb > 5 %}badge-success{% else %}badge-info{% endif %}">{{nb}}</span> <a href="{% url city-view city.slug %}">{{city.name}}</a>
+  {% if not loop.last %}<span class="separator">&bull;</span>{% endif %}
+  {% endwith %}
+</li>
+{% endfor %}
+</ul>
+<div class="clear">&nbsp;</div>
+
 <h1>Places</h1>
 
 {% for place in places %}

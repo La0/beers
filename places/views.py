@@ -11,6 +11,7 @@ def index(request):
   
   return {
     'places' : Place.objects.all().order_by('modified'),
+    'cities' : City.objects.exclude(places=None).order_by('zipcode'),
   }
 
 @login_required

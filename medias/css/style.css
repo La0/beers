@@ -16,7 +16,26 @@
   background: #D0FFAE;
 }
 
+span.separator {
+  color: #CCC;
+  width: 20px;
+  margin: 0 6px;
+}
+
+.clear {
+  clear: both;
+  height: 0;
+  margin: 0;
+}
+
 /* Prices */
 ul.prices li.current {
   font-weight: bold;
+}
+
+ul.cities {
+  list-style-type: none;
+}
+ul.cities li {
+  float: left;
 }

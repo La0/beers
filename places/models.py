@@ -14,7 +14,7 @@ class Place(Localisation):
   slug = models.SlugField(unique=True, blank=True)
   type = models.CharField(max_length=10, choices=PLACE_TYPE, default='bar')
   address = models.CharField(max_length=255)
-  city = models.ForeignKey(City)
+  city = models.ForeignKey(City, related_name='places')
   subways = models.ManyToManyField(SubwayStation, blank=True)
   
   # Creator
