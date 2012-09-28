@@ -4,7 +4,7 @@
 <h1>{{place.name}}</h1>
 
 <p>
-	Address: {{place.address}} - {{place.city.zipcode}} {{place.city.name}}
+	Address: {{place.address}} - {{place.city.zipcode}} <a href="{% url city-view place.city.slug %}">{{place.city.name}}</a>
 </p>
 <p>
 	Created by {{place.creator}} on {{place.created|date('d-m-Y H\hi')}}
