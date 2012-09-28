@@ -2,6 +2,7 @@ from django.db import models
 from geo.models import Localisation, City, SubwayStation
 from django.contrib.auth.models import User
 from helpers import nameize
+from geo.geocoding import CityFinder
 
 PLACE_TYPE = (
   ('bar', 'Bar'),
@@ -31,6 +32,17 @@ class Place(Localisation):
   def save(self, *args, **kwargs):
     self.slug = nameize(self.name)
     super(Localisation, self).save(*args, **kwargs)
+
+  def find_city(self):
+    '''
+    Find the city of a place, using it's coordinates
+    and the CityFinder algorithm (fast)
+    '''
+    cf = CityFinder(self)
+    city = cf.search()
+    if city is not None:
+      print city.name
+      self.city = city
 
   def find_subways(self, max_distance = 15):
     '''

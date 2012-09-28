@@ -47,9 +47,10 @@ class PlacePipeline(object):
     p = geojson.Point([pos['lat'], pos['lon']])
     item['geojson'] = geojson.dumps(p)
 
-    # Find subways
+    # Find subways & city
     place = item.save()
     place.find_subways()
+    place.find_city()
     place.save()
 
     return item

@@ -34,6 +34,7 @@ def place(request, place_id):
     p = geojson.Point([request.POST['lat'], request.POST['lng']])
     place.geojson = geojson.dumps(p)
     place.find_subways() # Update subways
+    place.find_city() # Update city
     place.save()
 
   # Find address
