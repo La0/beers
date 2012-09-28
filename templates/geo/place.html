@@ -12,7 +12,9 @@
 <p class="alert alert-error">No position yet</p>
 {% endif %}
 
-{% if results %}
+{% if not results %}
+<p class="alert">No results found</p>
+{% endif %}
 
 <div id="map" style="width: 600px; height: 400px"></div>
 <div id="results">
@@ -58,6 +60,7 @@ function onResultClick(e){
 	}
 }
 
+{% if results %}
 // Setup results
 var bounds = [];
 var marker = null;
@@ -70,6 +73,7 @@ var marker = null;
 	map.addLayer(marker);	
 {% endfor %}
 map.fitBounds(new L.LatLngBounds(bounds));
+{% endif %}
 
 // Save selected data
 $('#results button').click(function(){
@@ -85,11 +89,5 @@ $('#results button').click(function(){
 	$.post(window.location.href, data, function(data){});
 });	
 </script>
-
-
-{% else %}
-<p class="alert">No results found</p>
-{% endif %}
-
 
 {% endblock %}
