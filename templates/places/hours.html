@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Edit hours <a href="{{ place.get_absolute_url() }}">{{ place.name }}</a></h1>
+
+{% if hours %}
+<table class="table">
+<tr>
+	<th>Day</th>
+	<th>Start</th>
+	<th>End</th>
+	<th>HH?</th>
+</tr>
+{% for hour in hours %}
+<tr>
+	<td>{{hour.day}}</td>
+	<td>{{hour.start}}</td>
+	<td>{{hour.end}}</td>
+	<td>{{hour.happy_hour}}</td>
+</tr>
+{% endfor %}
+</table>
+{% else %}
+<p class="alert alert-warning">No hours</p>
+{% endif %}
+
+<form method="POST" url="">
+	{% csrf_token %}
+	{{form.as_p()|safe}}
+	<input type="submit" value="Ok">
+</form>
+
+{% endblock %}

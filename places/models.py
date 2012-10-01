@@ -68,3 +68,35 @@ class Place(Localisation):
       if diff > max_distance:
         continue
       self.subways.add(station)
+  
+  def get_hours_per_days(self):
+    '''
+    Give the hours per days, linking hh and normal hours
+    '''
+    days = [{'id' : d, 'name' : n} for d,n in WEEK_DAYS]
+    hours = self.hours.all()
+    for h in hours:
+      hour_type = h.happy_hour and 'happy_hour' or 'normal'
+      days[int(h.day)][hour_type] = h    
+    return days
+    
+
+WEEK_DAYS = (
+  (0, 'Monday'),
+  (1, 'Tuesday'),
+  (2, 'Wednesday'),
+  (3, 'Thursday'),
+  (4, 'Friday'),
+  (5, 'Saturday'),
+  (6, 'Sunday'),
+)
+
+class PlaceHour(models.Model):
+  place = models.ForeignKey(Place, related_name='hours')
+  day = models.CharField(max_length=1, choices=WEEK_DAYS)
+  start = models.TimeField()
+  end = models.TimeField()
+  happy_hour = models.BooleanField(default=False)
+
+  class Meta:
+    unique_together = ('place', 'day', 'happy_hour')

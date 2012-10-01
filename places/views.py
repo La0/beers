@@ -1,10 +1,11 @@
 from helpers import render
-from forms import PlaceForm
+from forms import PlaceForm, PlaceHourForm, WEEK_DAYS
 from django.contrib.auth.decorators import login_required
-from models import Place
+from models import Place, PlaceHour
 from django.http import Http404, HttpResponseRedirect
 from products.models import ProductPrice, ProductCategory
 from geo.models import City
+from django.shortcuts import get_object_or_404
 
 @render('places/index.html')
 def index(request):
@@ -47,7 +48,8 @@ def view(request, city_slug, place_slug):
   return {
     'place' : place,
     'prices' : prices,
-    'categories' : ProductCategory.objects.all()
+    'categories' : ProductCategory.objects.all(),
+    'days' : place.get_hours_per_days(),
   }
 
 @render('places/city.html')
@@ -61,4 +63,24 @@ def city(request, city_slug):
     'city' : city,
     'polygon' : city.get_polygon(),
     'places' : Place.objects.filter(city=city),
+  }
+
+@login_required
+@render('places/hours.html')
+def hours(request, place_id):
+  place = get_object_or_404(Place, pk=place_id)
+  
+  if request.method == 'POST':
+    form = PlaceHourForm(place, request.POST)
+    if form.is_valid():
+      for day in form.cleaned_data['day']:
+        ph = PlaceHour(place=place, day=day, start=form.cleaned_data['start'], end=form.cleaned_data['end'], happy_hour=form.cleaned_data['happy_hour'])
+        ph.save()
+  else:
+    form = PlaceHourForm(place)
+
+  return {
+    'place' : place,
+    'hours' : place.hours.all().order_by('day'),
+    'form' : form,
   }
