@@ -13,16 +13,21 @@ class PlaceHourForm(forms.Form):
   day = forms.MultipleChoiceField(choices=WEEK_DAYS, widget=forms.CheckboxSelectMultiple)
   start = forms.TimeField()
   end = forms.TimeField()
-  happy_hour = forms.BooleanField()
+  happy_hour = forms.BooleanField(required=False)
   
   def __init__(self, place, *args, **kwargs):
     self._place = place
     super(forms.Form, self).__init__(*args, **kwargs)
   
   def clean_day(self):
+    if 'day' not in self.cleaned_data:
+      return []
     return [int(d) for d in self.cleaned_data['day']]
   
   def clean(self):
+    if 'day' not in self.cleaned_data:
+      return self.cleaned_data
+
     for day in self.cleaned_data['day']:
       print 'Day %d' % (day)
       hour = None
