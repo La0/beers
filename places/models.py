@@ -100,3 +100,44 @@ class PlaceHour(models.Model):
 
   class Meta:
     unique_together = ('place', 'day', 'happy_hour')
+
+LINK_TYPE = (
+  ('official', 'Official'),
+  ('article', 'Article'),
+  ('social', 'Social (Fb,...)'),
+)
+
+class PlaceLink(models.Model):
+  place = models.ForeignKey(Place, related_name='links')
+  url = models.URLField()
+  title = models.CharField(max_length=255, null=True, blank=True)
+  type = models.CharField(max_length=10, choices=LINK_TYPE, default='article')
+  creator = models.ForeignKey(User)
+  created = models.DateTimeField(auto_now_add=True)
+
+  class Meta:
+    unique_together = ('place', 'url')
+
+  def search_title(self):
+    '''
+    Search title from web page
+    '''
+    if self.url is None:
+      raise Exception('No url specified')
+    try:
+      import urllib
+      import BeautifulSoup
+      soup = BeautifulSoup.BeautifulSoup(urllib.urlopen(self.url))
+      self.title = soup.title.string.strip()
+    except Exception, e:
+      print str(e)
+      return False
+    return True
+
+  def get_domain(self):
+    '''
+    Quickly extract the domain name of the link
+    '''
+    from urlparse import urlparse
+    p = urlparse(self.url)
+    return p.netloc.startswith('www.') and p.netloc[4:] or p.netloc

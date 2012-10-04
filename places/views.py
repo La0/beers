@@ -1,5 +1,5 @@
 from helpers import render
-from forms import PlaceForm, PlaceHourForm, WEEK_DAYS
+from forms import *
 from django.contrib.auth.decorators import login_required
 from models import Place, PlaceHour
 from django.http import Http404, HttpResponseRedirect
@@ -83,4 +83,25 @@ def hours(request, place_id):
     'place' : place,
     'hours' : place.hours.all().order_by('day'),
     'form' : form,
+  }
+
+@login_required
+@render('places/links.html')
+def links(request, place_id):
+  place = get_object_or_404(Place, pk=place_id)
+
+  link = PlaceLink(creator=request.user, place=place)
+  if request.method == 'POST':
+    form = PlaceLinkForm(request.POST, instance=link)
+    if form.is_valid():
+      if not form.instance.search_title():
+        form.instance.title = 'Link from %s' % form.instance.get_domain()
+      form.save()
+  else:
+    form = PlaceLinkForm(instance=link)
+
+  return {
+    'place' : place,
+    'form'  : form,
+    'links' : place.links.all(),
   }

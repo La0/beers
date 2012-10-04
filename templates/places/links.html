@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Edit links <a href="{{ place.get_absolute_url() }}">{{ place.name }}</a></h1>
+
+{% if links %}
+<table class="table">
+<tr>
+	<th>Title</th>
+	<th>Link</th>
+	<th>Type</th>
+	<th>Date</th>
+</tr>
+{% for link in links %}
+<tr>
+	<td>{{link.title}}</td>
+	<td>{{link.url}}</td>
+	<td>{{link.type}}</td>
+	<td>{{link.created}}</td>
+</tr>
+{% endfor %}
+</table>
+{% else %}
+<p class="alert alert-warning">No links</p>
+{% endif %}
+
+<form method="POST" url="">
+	{% csrf_token %}
+	{{form.as_p()|safe}}
+	<input type="submit" value="Ok">
+</form>
+
+{% endblock %}

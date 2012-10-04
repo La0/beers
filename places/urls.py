@@ -6,6 +6,7 @@ urlpatterns = patterns('',
     
     # Place edit
     url(r'^(?P<place_id>\d+)/hours$', 'places.views.hours', name="place-hours"),
+    url(r'^(?P<place_id>\d+)/links$', 'places.views.links', name="place-links"),
 
     url(r'^(?P<city_slug>\w+)/(?P<place_slug>\w+)', 'places.views.view', name="place-view"),
     url(r'^(?P<city_slug>\w+)/?$', 'places.views.city', name="city-view"),

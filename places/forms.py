@@ -38,3 +38,15 @@ class PlaceHourForm(forms.Form):
       raise forms.ValidationError('You can\'t add another hour on day #%d.' % day)
     
     return self.cleaned_data
+
+class PlaceLinkForm(forms.ModelForm):
+  class Meta:
+    model = PlaceLink
+    exclude = ('place', 'creator', 'title')
+
+  def clean(self):
+    try:
+      PlaceLink.objects.get(place=self.instance.place, url=self.cleaned_data['url'])
+    except:
+      return self.cleaned_data
+    raise forms.ValidationError('This link already exist for this place')
