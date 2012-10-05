@@ -1,0 +1,222 @@
+[
+    {
+        "pk": 1,
+        "model": "badges.badge",
+        "fields": {
+            "creator": 1,
+            "created": "2012-10-05T15:00:41.275Z",
+            "name": "Lounge",
+            "slug": "lounge"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "badges.badge",
+        "fields": {
+            "creator": 1,
+            "created": "2012-10-05T15:01:10.308Z",
+            "name": "En amoureux",
+            "slug": "en_amoureux"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "badges.badge",
+        "fields": {
+            "creator": 1,
+            "created": "2012-10-05T15:01:24.028Z",
+            "name": "Bande de potes",
+            "slug": "bande_de_potes"
+        }
+    },
+    {
+        "pk": 4,
+        "model": "badges.badge",
+        "fields": {
+            "creator": 1,
+            "created": "2012-10-05T15:01:29.959Z",
+            "name": "Rade",
+            "slug": "rade"
+        }
+    },
+    {
+        "pk": 5,
+        "model": "badges.badge",
+        "fields": {
+            "creator": 1,
+            "created": "2012-10-05T15:01:33.555Z",
+            "name": "Sport",
+            "slug": "sport"
+        }
+    },
+    {
+        "pk": 6,
+        "model": "badges.badge",
+        "fields": {
+            "creator": 1,
+            "created": "2012-10-05T15:01:39.017Z",
+            "name": "Parents",
+            "slug": "parents"
+        }
+    },
+    {
+        "pk": 7,
+        "model": "badges.badge",
+        "fields": {
+            "creator": 1,
+            "created": "2012-10-05T15:01:43.336Z",
+            "name": "Enfants",
+            "slug": "enfants"
+        }
+    },
+    {
+        "pk": 8,
+        "model": "badges.badge",
+        "fields": {
+            "creator": 1,
+            "created": "2012-10-05T15:01:51.348Z",
+            "name": "Cheap",
+            "slug": "cheap"
+        }
+    },
+    {
+        "pk": 9,
+        "model": "badges.badge",
+        "fields": {
+            "creator": 1,
+            "created": "2012-10-05T15:01:55.343Z",
+            "name": "Chic",
+            "slug": "chic"
+        }
+    },
+    {
+        "pk": 10,
+        "model": "badges.badge",
+        "fields": {
+            "creator": 1,
+            "created": "2012-10-05T15:02:08.088Z",
+            "name": "Vue magnifique",
+            "slug": "vue_magnifique"
+        }
+    },
+    {
+        "pk": 11,
+        "model": "badges.badge",
+        "fields": {
+            "creator": 1,
+            "created": "2012-10-05T15:02:13.598Z",
+            "name": "Terrasse",
+            "slug": "terrasse"
+        }
+    },
+    {
+        "pk": 12,
+        "model": "badges.badge",
+        "fields": {
+            "creator": 1,
+            "created": "2012-10-05T15:02:20.734Z",
+            "name": "Bruyant",
+            "slug": "bruyant"
+        }
+    },
+    {
+        "pk": 13,
+        "model": "badges.badge",
+        "fields": {
+            "creator": 1,
+            "created": "2012-10-05T15:02:28.173Z",
+            "name": "Dance Floor",
+            "slug": "dance_floor"
+        }
+    },
+    {
+        "pk": 14,
+        "model": "badges.badge",
+        "fields": {
+            "creator": 1,
+            "created": "2012-10-05T15:02:33.655Z",
+            "name": "Concerts",
+            "slug": "concerts"
+        }
+    },
+    {
+        "pk": 15,
+        "model": "badges.badge",
+        "fields": {
+            "creator": 1,
+            "created": "2012-10-05T15:02:40.099Z",
+            "name": "Quizz",
+            "slug": "quizz"
+        }
+    },
+    {
+        "pk": 16,
+        "model": "badges.badge",
+        "fields": {
+            "creator": 1,
+            "created": "2012-10-05T15:02:44.810Z",
+            "name": "Dj",
+            "slug": "dj"
+        }
+    },
+    {
+        "pk": 17,
+        "model": "badges.badge",
+        "fields": {
+            "creator": 1,
+            "created": "2012-10-05T15:02:52.296Z",
+            "name": "Brunch",
+            "slug": "brunch"
+        }
+    },
+    {
+        "pk": 18,
+        "model": "badges.badge",
+        "fields": {
+            "creator": 1,
+            "created": "2012-10-05T15:02:57.035Z",
+            "name": "Irlandais",
+            "slug": "irlandais"
+        }
+    },
+    {
+        "pk": 19,
+        "model": "badges.badge",
+        "fields": {
+            "creator": 1,
+            "created": "2012-10-05T15:03:03.451Z",
+            "name": "Australien",
+            "slug": "australien"
+        }
+    },
+    {
+        "pk": 20,
+        "model": "badges.badge",
+        "fields": {
+            "creator": 1,
+            "created": "2012-10-05T15:03:08.635Z",
+            "name": "Snack",
+            "slug": "snack"
+        }
+    },
+    {
+        "pk": 21,
+        "model": "badges.badge",
+        "fields": {
+            "creator": 1,
+            "created": "2012-10-05T15:03:14.875Z",
+            "name": "Brasserie",
+            "slug": "brasserie"
+        }
+    },
+    {
+        "pk": 22,
+        "model": "badges.badge",
+        "fields": {
+            "creator": 1,
+            "created": "2012-10-05T15:03:20.128Z",
+            "name": "Cigarettes",
+            "slug": "cigarettes"
+        }
+    }
+]

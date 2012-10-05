@@ -10,6 +10,7 @@ urlpatterns = patterns('',
     url(r'^places/', include('places.urls')),
     url(r'^user/', include('users.urls')),
     url(r'^product/', include('products.urls')),
+    url(r'^badge/', include('badges.urls')),
 
     # Medias for dev
     (r'^medias/(?P<path>.*)$', 'django.views.static.serve', {'document_root': MEDIA_ROOT}),

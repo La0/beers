@@ -124,6 +124,7 @@ INSTALLED_APPS = (
     'geo',
     'places',
     'products',
+    'badges',
     'south',
 )
 

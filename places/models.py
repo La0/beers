@@ -16,6 +16,7 @@ class Place(Localisation):
   address = models.CharField(max_length=255)
   city = models.ForeignKey(City, related_name='places')
   subways = models.ManyToManyField(SubwayStation, blank=True)
+  badges = models.ManyToManyField('badges.Badge', through='badges.PlaceBadge', blank=True)
   
   # Creator
   creator = models.ForeignKey(User)
