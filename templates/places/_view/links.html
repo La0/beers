@@ -1,0 +1,19 @@
+<ul>
+{% for link in place.links.all() %}
+	<li>
+		{% if link.type == 'official' %}
+		<i class="icon-home" ></i>
+		{% elif link.type == 'article' %}
+		<i class="icon-pencil" ></i>
+		{% elif link.type == 'social' %}
+		<i class="icon-thumbs-up" ></i>
+		{% endif %}
+		<a href="{{ link.url }}">{{ link.title }}</a> ({{ link.get_domain() }})</li>
+{% endfor %}
+</ul>
+
+{% if user.is_authenticated() %}
+<a class="btn btn-success" href="{% url place-links place.id %}">Edit links</a>
+{% elif not links %}
+<p class="alert alert-info">No links for this place</p>
+{% endif %}

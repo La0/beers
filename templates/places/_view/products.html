@@ -1,0 +1,32 @@
+{% if prices %}
+<ul>
+{% for price in prices %}
+	<li><a href="{% url product-price price.product.id, place.id %}">{{price.product.name}}</a> @ {{price.price}} euros by {{price.creator}}</li>
+{% endfor %}
+</ul>
+{% else %}
+No prices
+{% endif %}
+
+{% if user.is_authenticated() %}
+<ul id="products_tab" class="nav nav-tabs">
+{% for cat in categories %}
+<li {% if loop.first %}class="active"{% endif %}><a href="#cat_{{cat.id}}" data-toggle="tab">{{cat.name}}</a></li>	
+{% endfor %}
+</ul>
+
+   <div id="products_content" class="tab-content">
+{% for cat in categories %}
+<div class="tab-pane fade {% if loop.first %}in active{% endif %}" id="cat_{{cat.id}}">
+	{% for product in cat.products.all().order_by('name') %}
+	<a class="product" href="{% url product-price product.id, place.id %}" id="product_{{product.id}}">
+		{{product.name|truncatechars(15)}}
+	</a>
+	{% else %}
+	<p class="alert alert-error">No products</p>
+	{% endfor %}
+</div>
+{% endfor %}
+</div>
+
+{% endif %}

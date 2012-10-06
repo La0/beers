@@ -1,0 +1,37 @@
+{% if days %}
+
+<table class="table table-condensed table-bordered">
+<tr>
+	<th>Day</th>
+	<th>Open</th>
+	<th>Happy Hour</th>
+</tr>
+{% for day in days %}
+<tr>
+	<td>{{day.name}}</td>
+	<td>
+		{% if day.normal %}
+		{{day.normal.start}} - {{day.normal.end}}
+		{% else %}
+		-
+		{% endif %}
+	</td>
+	<td>
+		{% if day.happy_hour %}
+		{{day.happy_hour.start}} - {{day.happy_hour.end}}
+		{% else %}
+		-
+		{% endif %}
+	</td>
+</tr>
+	
+{% endfor %}
+</table>
+
+{% else %}
+<p class="alert alert-info">No hours</p>
+{% endif %}
+
+{% if user.is_authenticated() %}
+<a class="btn btn-success" href="{% url place-hours place.id %}">Edit hours</a>
+{% endif %}
