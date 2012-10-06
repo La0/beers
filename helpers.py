@@ -24,6 +24,7 @@ def render(html_template=False, json_template=False):
 
         # Add some settings to context
         context['DEBUG'] = DEBUG
+        context['IS_AJAX'] = request.is_ajax()
         #context['GOOGLE_ANALYTICS'] = GOOGLE_ANALYTICS
 
         # Ajax render using json
