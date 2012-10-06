@@ -1,0 +1,11 @@
+<div id="badge-add-form">
+{% for badge in badges %}
+	<span class="badge badge-info">{{badge.name}}</span>
+{% else %}
+	<p class="alert alert-warning">No badges for this place</p>
+{% endfor %}
+</div>
+
+{% if user.is_authenticated() %}
+<a class="btn btn-success ajax-load" href="{% url badge-add place.id %}" target="badge-add-form">Add badges</a>
+{% endif %}

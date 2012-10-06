@@ -1,0 +1,20 @@
+{% if not IS_AJAX %}{% extends 'base.html' %}{% endif %}
+
+{% block content %}
+{% if not IS_AJAX %}
+<h1>Add a badge for <a href="{{place.get_absolute_url()}}">{{place.name}}</a></h1>
+{% endif %}
+
+{% for badge in badges %}
+	<span class="badge badge-info">{{badge.name}}</span>
+{% else %}
+	<p class="alert alert-warning">No badges for this place</p>
+{% endfor %}
+
+<form method="POST" action="{% url badge-add place.id %}">
+	{% csrf_token %}
+	{{form.as_p()|safe}}
+	<input class="btn btn-primary" type="submit" value="Add"/>
+</form>
+
+{% endblock %}

@@ -50,6 +50,7 @@ def view(request, city_slug, place_slug):
     'prices' : prices,
     'categories' : ProductCategory.objects.all(),
     'days' : place.get_hours_per_days(),
+    'badges' : place.badges.all().order_by('name'),
   }
 
 @render('places/city.html')
