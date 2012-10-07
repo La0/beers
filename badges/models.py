@@ -26,3 +26,6 @@ class PlaceBadge(models.Model):
   
   user = models.ForeignKey(User)
   created = models.DateTimeField(auto_now_add=True)
+
+  class Meta:
+    unique_together = (('place', 'badge'),)
