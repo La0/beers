@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Badge {{badge.name}}</h1>
+
+{% if places_badges %}
+	<ul>
+	{% for pb in places_badges %}
+		<li><a href="{{pb.place.get_absolute_url()}}">{{pb.place.name}}</a> - <a href="{% url city pb.place.city.id %}">{{pb.place.city.name}}</a></li>
+	{% endfor %}
+	</ul>
+{% else %}
+<p class="alert alert-warning">No places for this badge</p>
+{% endif %}
+
+{% endblock %}

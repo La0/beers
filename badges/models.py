@@ -17,12 +17,17 @@ class Badge(models.Model):
     self.slug = nameize(self.name)
     super(Badge, self).save(*args, **kwargs)
 
+  @models.permalink
+  def get_absolute_url(self):
+    return ('badge-view', [self.slug])
+
+
 class PlaceBadge(models.Model):
   '''
   Link a Place and a Badge
   '''
   place = models.ForeignKey(Place)
-  badge = models.ForeignKey(Badge)
+  badge = models.ForeignKey(Badge, related_name='places')
   
   user = models.ForeignKey(User)
   created = models.DateTimeField(auto_now_add=True)

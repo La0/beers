@@ -12,6 +12,14 @@ def index(request):
     'badges' : Badge.objects.all().order_by('name')
   }
 
+@render('badges/view.html')
+def view(request, badge_slug):
+  badge = get_object_or_404(Badge,slug=badge_slug)
+  return {
+    'badge' : badge,
+    'places_badges' : badge.places.all(),
+  }
+
 @login_required
 @render('badges/add.html')
 def add(request, place_id):

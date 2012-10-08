@@ -6,7 +6,7 @@
 
 <ul>
 {% for badge in badges %}
-  <li>{{ badge.name }}</li>
+  <li><a href="{{ badge.get_absolute_url() }}">{{ badge.name }}</li>
 {% endfor %}
 </ul>
 {% endblock %}
