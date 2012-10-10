@@ -44,7 +44,7 @@ class ProductPrice(models.Model):
   Link a Product and a Place
   specifying the price, date, creator...
   '''
-  place = models.ForeignKey(Place)
+  place = models.ForeignKey(Place, related_name='prices')
   product = models.ForeignKey(Product)
   current = models.BooleanField(default=True)
 

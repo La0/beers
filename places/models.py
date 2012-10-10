@@ -22,6 +22,8 @@ class Place(Localisation):
   creator = models.ForeignKey(User)
   created = models.DateTimeField(auto_now_add=True)
   modified =models.DateTimeField(auto_now=True)
+  
+  completion = models.FloatField(default=0)
 
   def __unicode__(self):
     return self.name
@@ -32,6 +34,7 @@ class Place(Localisation):
 
   def save(self, *args, **kwargs):
     self.slug = nameize(self.name)
+    self.calc_completion()
     super(Localisation, self).save(*args, **kwargs)
 
   def find_city(self):
@@ -80,7 +83,20 @@ class Place(Localisation):
       hour_type = h.happy_hour and 'happy_hour' or 'normal'
       days[int(h.day)][hour_type] = h    
     return days
-    
+  
+  def calc_completion(self):
+    '''
+    Calculate completion of a place
+    '''
+    steps = (
+      self.get_point() is not None,
+      self.subways.count() > 0,
+      self.badges.count() > 0,
+      self.badges.count() > 2,
+      self.hours.count() > 0,
+      self.prices.count() > 0,
+    )
+    self.completion = 1.0 * len([s for s in steps if s]) / len(steps)
 
 WEEK_DAYS = (
   (0, 'Monday'),
