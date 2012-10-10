@@ -9,6 +9,12 @@
 <p>
 	Created by {{place.creator}} on {{place.created|date('d-m-Y H\hi')}}
 </p>
+<div>
+	Completed {{place.get_completion_percent()}}%
+	<div class="progress progress-striped active" style="width:200px;">
+		<div class="bar" style="width: {{place.get_completion_percent()}}%;"></div>
+	</div>
+</div>
 
 <h2>Map</h2>
 {% include 'places/_view/map.html' %}

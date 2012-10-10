@@ -97,6 +97,9 @@ class Place(Localisation):
       self.prices.count() > 0,
     )
     self.completion = 1.0 * len([s for s in steps if s]) / len(steps)
+  
+  def get_completion_percent(self):
+    return int(self.completion * 100) 
 
 WEEK_DAYS = (
   (0, 'Monday'),
