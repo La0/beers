@@ -1,0 +1,8 @@
+Coffin==0.3.7
+Django==1.4.2
+Jinja2==2.6
+South==0.7.6
+argparse==1.2.1
+geojson==1.0.1
+simplejson==2.6.2
+wsgiref==0.1.2
