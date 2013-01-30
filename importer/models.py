@@ -8,3 +8,10 @@ class PlaceCategory(models.Model):
 
   def __unicode__(self):
     return u'%s %s' % (self.foursquare_id, self.name)
+
+  def get_all_children(self):
+    out = []
+    for cat in PlaceCategory.objects.filter(parent=self):
+      out.append(cat)
+      out += cat.get_all_children()
+    return out

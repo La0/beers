@@ -39,3 +39,19 @@ ul.cities {
 ul.cities li {
   float: left;
 }
+
+/* Categories */
+form.categories input.btn {
+  position: fixed;
+  top: 15px;
+  left: 330px;
+}
+
+form.categories ul li {
+  list-style-type : none;
+}
+
+form.categories ul li label, div.categories ul li input {
+  display: inline;
+  line-height: 20px;
+}

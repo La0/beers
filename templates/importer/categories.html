@@ -3,6 +3,10 @@
 {% block content %}
 <h1>Categories</h1>
 
-... WIP 
+<form class="categories" method="POST" action="">
+  {% csrf_token %}
+  {% include 'importer/_categories.html' %}
+  <input type="submit" class="btn btn-primary" value="Ok" />
+</form>
 
 {% endblock %}

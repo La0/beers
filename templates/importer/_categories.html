@@ -1,0 +1,14 @@
+{% if categories %}
+<ul>
+{% for cat in categories %}
+<li>
+<input type="checkbox" name="category" value="{{cat.id}}" id="category_{{cat.id}}" {% if cat.used %}checked="checked"{% endif %}/>
+  <label for="category_{{cat.id}}">{{cat.name}}</label>
+
+  {% with all_categories.filter(parent=cat) as categories %}
+    {% include 'importer/_categories.html' %}
+  {% endwith %}
+</li>
+{% endfor %}
+</ul>
+{% endif %}
