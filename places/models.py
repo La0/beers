@@ -27,6 +27,7 @@ class Place(Localisation):
 
   # Api link
   foursquare_id = models.CharField(max_length=24, null=True, blank=True)
+  instagram_id = models.CharField(max_length=24, null=True, blank=True)
 
   # Organize
   categories = models.ManyToManyField('importer.PlaceCategory', blank=True)

@@ -80,8 +80,17 @@ class Command(BaseCommand):
         setattr(place, k, v)
     place.find_subways()
     place.categories = categories
-    place.save()
     print '%s place %d %s' % (created and 'Created' or 'Updated', place.id, place.name)
 
-    from pprint import pprint
-    pprint(venue)
+    # Add instagram
+    try:
+      res = self._instagram.location_search(foursquare_v2_id=place.foursquare_id)
+      if not len(res):
+        raise Exception('No instagram location found')
+      location = res[0]
+      place.instagram_id = location.id
+      print 'Linked to instagram id %s' % (location.id,)
+    except Exception, e:
+      print 'Instagram failed: %s' % str(e)
+
+    place.save()
