@@ -36,11 +36,8 @@ class CityFinder:
   _lat = 0.0
   _lng = 0.0
 
-  def __init__(self, place):
-    point = place.get_point()
-    if point is None:
-      raise Exception('No coordinates')
-    self._lat, self._lng = point
+  def __init__(self, ll):
+    self._lat, self._lng = ll
 
   def search(self):
     '''

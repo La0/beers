@@ -167,6 +167,9 @@ LOGOUT_REDIRECT_URL = '/'
 FABRIC_HOSTS = ['root@127.0.0.2']
 FABRIC_ENV = 'django'
 
+# Bot user id, used in importers
+BOT_USER_ID=2
+
 # Import local settings, if any
 try:
   from local_settings import *

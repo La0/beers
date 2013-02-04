@@ -25,6 +25,12 @@ class Place(Localisation):
   
   completion = models.FloatField(default=0)
 
+  # Api link
+  foursquare_id = models.CharField(max_length=24, null=True, blank=True)
+
+  # Organize
+  categories = models.ManyToManyField('importer.PlaceCategory', blank=True)
+
   def __unicode__(self):
     return self.name
 
@@ -34,7 +40,8 @@ class Place(Localisation):
 
   def save(self, *args, **kwargs):
     self.slug = nameize(self.name)
-    self.calc_completion()
+    if self.pk is not None:
+      self.calc_completion()
     super(Localisation, self).save(*args, **kwargs)
 
   def find_city(self):
@@ -42,7 +49,7 @@ class Place(Localisation):
     Find the city of a place, using it's coordinates
     and the CityFinder algorithm (fast)
     '''
-    cf = CityFinder(self)
+    cf = CityFinder(self.get_point())
     city = cf.search()
     if city is not None:
       self.city = city
